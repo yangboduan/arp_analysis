@@ -17,7 +17,7 @@
 #include <iostream>
 #include <ctime>
 #include <string.h>
-#include <sstream>  
+#include <sstream> 
  /* 以太网帧首部长度 */
 #define ETHER_HEADER_LEN sizeof(struct ether_header)
 /* 整个arp结构长度 */
@@ -99,6 +99,14 @@ int arp_ananysis(struct ether_arp *arp_packet){
     sender_mac[8]=':';
     sender_mac[11]=':';
     sender_mac[14]=':';
+    /*MAC字符串中小写字母转换成大写字母*/
+    int m;
+    for (m=0;m<=16;m++){
+        if (sender_mac[m]>=97 && sender_mac[m]<=122)
+            sender_mac[m] = sender_mac[m] - 32;
+    }
+    
+
     cout<<sender_mac<<"\n";
     
     /*接收方的IP地址*/
@@ -126,6 +134,12 @@ int arp_ananysis(struct ether_arp *arp_packet){
     target_mac[8]=':';
     target_mac[11]=':';
     target_mac[14]=':';
+    /*MAC字符串中小写字母转换成大写字母*/
+    int n=0;
+    for (n=0;n<=16;n++){
+	if (target_mac[n]>=97 && target_mac[n]<=122)
+	    target_mac[n] = target_mac[n] - 32;
+    }
     cout<<target_mac<<"\n";
 
 
